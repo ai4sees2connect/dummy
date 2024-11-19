@@ -8,13 +8,18 @@ bpy.ops.wm.open_mainfile(filepath=blend_file_path)
 # Access the scene
 scene = bpy.context.scene
 
-# Identify the object to focus on (assuming there's a specific model in the .blend file)
-# Replace "YourModelName" with the actual name of your model
-model_name = "YourModelName"  # Change this to your model's name in the .blend file
-model = bpy.data.objects.get(model_name)
+# List all objects in the .blend file
+print("Available objects in the scene:")
+for obj in bpy.data.objects:
+    print(f"Object name: {obj.name}, Type: {obj.type}")
+
+# Automatically select the first mesh object (assuming your DMU is a mesh)
+model = next((obj for obj in bpy.data.objects if obj.type == 'MESH'), None)
 
 if not model:
-    raise ValueError(f"Object '{model_name}' not found in the .blend file.")
+    raise ValueError("No mesh object found in the .blend file. Please check your file.")
+
+print(f"Using model: {model.name}")
 
 # Set the object's location if needed
 model.location = (0, 50, 50)
