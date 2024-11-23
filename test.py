@@ -1,3 +1,83 @@
+The issue in the image suggests that the repository used for installing "Development Tools" is either misconfigured, outdated, or inaccessible. Here's how you can troubleshoot and resolve it:
+
+---
+
+### **Steps to Fix the Issue**
+
+#### 1. **Clear Cached Metadata**
+   Clean the `yum` metadata to ensure no corrupted or old files are causing the issue:
+   ```bash
+   sudo yum clean all
+   sudo rm -rf /var/cache/yum
+   ```
+
+#### 2. **Update yum**
+   Update the `yum` package manager to its latest version:
+   ```bash
+   sudo yum update -y
+   ```
+
+#### 3. **Enable Required Repositories**
+   - List all repositories:
+     ```bash
+     sudo yum repolist all
+     ```
+   - Check if any required repository (like `amzn2-core`, `amzn2extra`) is **disabled**. If yes, enable it:
+     ```bash
+     sudo yum-config-manager --enable <repo_id>
+     ```
+     Example:
+     ```bash
+     sudo yum-config-manager --enable amzn2-core
+     sudo yum-config-manager --enable amzn2extra-docker
+     ```
+
+#### 4. **Enable Extras Repository**
+   Amazon Linux often requires enabling the `extras` repository to install certain packages:
+   ```bash
+   sudo amazon-linux-extras enable epel
+   sudo amazon-linux-extras enable python3.8
+   ```
+
+#### 5. **Install Development Tools**
+   Once the repositories are fixed, try reinstalling the "Development Tools" group:
+   ```bash
+   sudo yum groupinstall "Development Tools" -y
+   ```
+
+#### 6. **Check Repository URLs**
+   If you still face issues, check the `.repo` files in `/etc/yum.repos.d/` to verify their `baseurl`:
+   ```bash
+   cat /etc/yum.repos.d/amzn2-core.repo
+   ```
+   Ensure the `baseurl` or `mirrorlist` points to a valid Amazon Linux repository.
+
+---
+
+### **If the Issue Persists**
+#### Disable Problematic Repositories
+   Temporarily disable specific repositories causing conflicts (e.g., `docker-ce-nightly` in your case):
+   ```bash
+   sudo yum-config-manager --disable docker-ce-nightly
+   ```
+
+#### Enable Missing Dependencies
+   If the group install fails due to missing dependencies, try enabling optional dependencies:
+   ```bash
+   sudo yum install gcc gcc-c++ make automake -y
+   ```
+
+---
+
+### **Alternative Solution: Use Amazon Extras for GCC**
+If you're unable to install the whole group, you can manually install essential tools using Amazon Linux Extras:
+```bash
+sudo amazon-linux-extras enable epel
+sudo yum install gcc gcc-c++ make -y
+```
+
+Let me know if any specific error messages appear!
+
 #!/bin/bash
 
 # Get the list of all repositories (repo name and status) from yum
