@@ -1,3 +1,29 @@
+#!/bin/bash
+
+# Get the list of all repositories (repo name and status) from yum
+repo_list=$(sudo yum repolist all)
+
+# Loop through each line of the repo list
+while IFS= read -r line; do
+    # Extract the repo name and status from the line
+    repo_name=$(echo "$line" | awk '{print $1}')
+    status=$(echo "$line" | awk '{print $2}')
+
+    # Check if the status is 'disabled'
+    if [[ "$status" == "disabled" ]]; then
+        echo "Enabling repository: $repo_name"
+        
+        # Enable the repository by changing the 'enabled' field in its repo file
+        sudo sed -i "s/^enabled=0/enabled=1/" "/etc/yum.repos.d/$repo_name.repo"
+        
+        echo "Repository $repo_name has been enabled."
+    fi
+done <<< "$repo_list"
+
+# Update yum repositories
+sudo yum repolist enabled
+
+
 import bpy
 import math
 import os
