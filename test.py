@@ -1,3 +1,14 @@
+sudo alternatives --install /usr/bin/gcc gcc /usr/local/bin/gcc-13 100
+sudo alternatives --install /usr/bin/g++ g++ /usr/local/bin/g++-13 100
+
+sudo alternatives --config gcc
+sudo alternatives --config g++
+
+gcc --version
+
+
+
+
 The issue in the image suggests that the repository used for installing "Development Tools" is either misconfigured, outdated, or inaccessible. Here's how you can troubleshoot and resolve it:
 
 ---
