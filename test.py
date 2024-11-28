@@ -1,3 +1,23 @@
+Here's a comparison table outlining when to prefer **SuperGlue** and **Mickey** based on specific scenarios and requirements:
+
+| **Criterion**                        | **Prefer SuperGlue**                                                                                     | **Prefer Mickey**                                                                                   |
+|--------------------------------------|---------------------------------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------|
+| **Task Type**                        | 2D feature matching tasks (e.g., image stitching, homography estimation, visual SLAM).                  | 3D metric relative pose estimation and tasks requiring scale-awareness.                           |
+| **Data Characteristics**            | Overlapping images with shared regions and textures.                                                    | Non-overlapping or wide-baseline images with significant viewpoint or scale changes.              |
+| **Scale Requirements**              | Scale is not required (e.g., relative pose estimation without metric precision).                        | Scale-aware pose estimation is necessary (e.g., robotics, AR, or aircraft inspection).            |
+| **Robustness to Viewpoint Changes**  | Moderate viewpoint changes.                                                                             | Extreme viewpoint or scale variations.                                                            |
+| **Depth or Metric Information**     | Not needed; operates purely in 2D space.                                                                | Depth or metric correspondences are implicitly learned and required.                              |
+| **Pipeline Complexity**             | Simpler integration with existing feature detectors (e.g., SuperPoint).                                 | Requires an end-to-end pipeline for learning 3D keypoints, descriptors, and metric poses.         |
+| **Supervision Requirements**        | Requires strong supervision, including pre-computed keypoints and descriptors.                          | Requires only weak supervision (image pairs and their relative poses).                            |
+| **Hardware and Computation**        | Suitable for low to medium computation; efficient for 2D matching tasks.                                | Higher computational needs due to 3D keypoint detection and pose estimation.                      |
+| **Use Case Examples**               | - Image stitching<br> - Panorama creation<br> - Visual SLAM<br> - Homography estimation.                | - Aircraft inspection<br> - Robotics navigation<br> - Augmented reality<br> - Industrial quality control. |
+| **Domain Adaptability**             | Well-suited for pre-defined, highly overlapping datasets.                                               | Flexible to new domains without requiring depth or scene reconstructions.                         |
+| **Performance Benchmark**           | Excellent for wide-baseline 2D matching tasks in controlled environments.                               | State-of-the-art in scale-aware relocalization and metric pose estimation tasks.                   |
+
+### **Summary**
+- Choose **SuperGlue** for traditional **2D matching tasks** with overlapping images and simpler requirements.
+- Opt for **Mickey** when scale-aware precision, **3D pose estimation**, and robustness to challenging conditions are crucial.
+
 Sarlin, P.-E., DeTone, D., Malisiewicz, T., & Rabinovich, A. (2020).
 SuperGlue: Learning Feature Matching with Graph Neural Networks.
 Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR).
