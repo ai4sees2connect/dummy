@@ -1,3 +1,12 @@
+Sarlin, P.-E., DeTone, D., Malisiewicz, T., & Rabinovich, A. (2020).
+SuperGlue: Learning Feature Matching with Graph Neural Networks.
+Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR).
+
+Barroso-Laguna, A., Munukutla, S., Prisacariu, V., & Brachmann, E. (2024).
+Matching 2D Images in 3D: Metric Relative Pose from Metric Correspondences.
+Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR).
+
+
 sudo alternatives --install /usr/bin/gcc gcc /usr/local/bin/gcc-13 100
 sudo alternatives --install /usr/bin/g++ g++ /usr/local/bin/g++-13 100
 
